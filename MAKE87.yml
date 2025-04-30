@@ -15,7 +15,7 @@ provider_endpoints:
   requester_message_type: make87_messages.image.compressed.image_jpeg.ImageJPEG
   provider_message_type: make87_messages.text.text_plain.PlainText
 port_requirements:
-- name: Chat
+- name: OLLAMA
   protocol: HTTP
   target_port: 11434
   publish_mode: Ingress
@@ -30,7 +30,7 @@ config:
   values:
   - name: MODEL_NAME
     description: 'The name of the ollama model to use. Options are: gemma3:1b, gemma3, gemma3:12b, gemma3:27b, qwq, deepseek-r1, deepseek-r1:671b, llama3.3, llama3.2, llama3.2:1b, llama3.2-vision, llama3.2-vision:90b, llama3.1, llama3.1:405b, phi4, phi4-mini, mistral, moondream, neural-chat, starling-lm, codellama, llama2-uncensored, llava, granite3.2'
-    default_value: ''
+    default_value: 'moondream'
     required: true
     secret: false
 volume_requirements: []
