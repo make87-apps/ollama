@@ -20,9 +20,13 @@ def main():
     model_name = make87.get_config_value("MODEL_NAME", "moondream", str)
     logger.info(f"Using model {model_name}")
     vpn_ip = os.environ.get("VPN_IP", None)
+    if vpn_ip is None:
+        raise Exception("No VPN IP found")
     port_config = os.environ.get("PORT_CONFIG", None)
+    if port_config is None:
+        raise Exception("No port config found")
     vpn_server_url = None
-    if vpn_ip is None or port_config is None:
+    if port_config is not None:
         # search for OLLAMA and get public port
         port_config = json.loads(port_config)
         for port_config in port_config:
@@ -40,8 +44,7 @@ def main():
             body=vpn_server_url,
         )
 
-    if vpn_server_url is not None:
-        vpn_url_endpoint.provide(callback_vpn_url)
+    vpn_url_endpoint.provide(callback_vpn_url)
 
     model_name_endpoint = make87.get_provider(
         name="MODEL_NAME", requester_message_type=Empty, provider_message_type=PlainText
