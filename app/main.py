@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 
 from make87_messages.core.empty_pb2 import Empty
 from make87_messages.core.header_pb2 import Header
+from make87_messages.image.compressed.image_jpeg_with_string_pb2 import ImageJPEGWithString
 from make87_messages.text.text_plain_pb2 import PlainText
 from make87_messages.image.compressed.image_jpeg_pb2 import ImageJPEG
 import make87
@@ -81,14 +82,15 @@ def main():
     endpoint.provide(callback)
 
     endpoint = make87.get_provider(
-        name="IMG_CHAT", requester_message_type=ImageJPEG, provider_message_type=PlainText
+        name="IMG_CHAT", requester_message_type=ImageJPEGWithString, provider_message_type=PlainText
     )
 
-    def callback_img(message: ImageJPEG) -> PlainText:
+    def callback_img(message: ImageJPEGWithString) -> PlainText:
         response: ChatResponse = chat(model=model_name, messages=[
             Message(
                 role="user",
                 images=[Image(value=message.data)],
+                content=message.text,
             )
         ])
         return PlainText(

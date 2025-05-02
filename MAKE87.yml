@@ -11,7 +11,7 @@ provider_endpoints:
     requester_message_type: make87_messages.text.text_plain.PlainText
     provider_message_type: make87_messages.text.text_plain.PlainText
   - name: IMG_CHAT
-    requester_message_type: make87_messages.image.compressed.image_jpeg.ImageJPEG
+    requester_message_type: make87_messages.image.compressed.image_jpeg_with_string.ImageJPEGWithString
     provider_message_type: make87_messages.text.text_plain.PlainText
   - name: VPN_SERVER_URL
     requester_message_type: make87_messages.core.empty.Empty
