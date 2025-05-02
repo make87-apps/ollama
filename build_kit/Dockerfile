@@ -1,4 +1,4 @@
-FROM ollama/ollama:0.6.5
+FROM ollama/ollama:0.6.6
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
