@@ -10,12 +10,13 @@ from make87_messages.image.compressed.image_jpeg_pb2 import ImageJPEG
 import make87
 from ollama import chat, Client, ChatResponse, Message, Image
 
+logger = logging.getLogger(__name__)
 
 def main():
     make87.initialize()
 
     model_name = make87.get_config_value("MODEL_NAME", "moondream", str)
-    logging.info(f"Using model {model_name}")
+    logger.info(f"Using model {model_name}")
     vpn_ip = os.environ.get("VPN_IP", None)
     port_config = os.environ.get("PORT_CONFIG", None)
     vpn_server_url = None
@@ -49,12 +50,12 @@ def main():
             body=model_name,
         )
     model_name_endpoint.provide(callback_model_name)
-    logging.info("Setup vpn and model name endpoints")
+    logger.info("Setup vpn and model name endpoints")
 
-    logging.info(f"Downloading model {model_name}...")
+    logger.info(f"Downloading model {model_name}...")
     client = Client()
     client.pull(model=model_name, stream=False)
-    logging.info(f"Model {model_name} downloaded.")
+    logger.info(f"Model {model_name} downloaded.")
 
     endpoint = make87.get_provider(
         name="CHAT", requester_message_type=PlainText, provider_message_type=PlainText
@@ -92,8 +93,8 @@ def main():
 
     endpoint.provide(callback_img)
 
-    logging.info("Setup chat endpoints")
-    logging.info("Ollama is ready.")
+    logger.info("Setup chat endpoints")
+    logger.info("Ollama is ready.")
 
     make87.loop()
 
