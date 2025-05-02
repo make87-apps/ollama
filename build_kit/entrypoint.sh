@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
-
+set -e  # exit script if any command fails
 ollama serve &
-time sleep 5  # give server time to start
+
+echo "Waiting for ollama to start..."
+sleep 5
+
+echo "Starting Python app..."
 uv run python -m app.main
+
+echo "Python app has exited."
