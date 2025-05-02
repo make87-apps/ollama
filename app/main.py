@@ -12,6 +12,8 @@ from ollama import chat, Client, ChatResponse, Message, Image
 
 logger = logging.getLogger(__name__)
 
+logging.basicConfig(level=logging.INFO)
+
 def main():
     make87.initialize()
 
