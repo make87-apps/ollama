@@ -51,7 +51,7 @@ def main():
         name="LOCAL_SERVER_URL", requester_message_type=Empty, provider_message_type=PlainText
     )
     def callback_local_url(message: Empty) -> PlainText:
-        local_address = f"{make87.DEPLOYED_APPLICATION_NAME}:11434"
+        local_address = f"http://{make87.DEPLOYED_APPLICATION_NAME}:11434"
 
         return PlainText(
             header=make87.header_from_message(Header, message=message, append_entity_path="response"),
