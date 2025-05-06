@@ -16,6 +16,9 @@ provider_endpoints:
   - name: VPN_SERVER_URL
     requester_message_type: make87_messages.core.empty.Empty
     provider_message_type: make87_messages.text.text_plain.PlainText
+  - name: LOCAL_SERVER_URL
+    requester_message_type: make87_messages.core.empty.Empty
+    provider_message_type: make87_messages.text.text_plain.PlainText
   - name: MODEL_NAME
     requester_message_type: make87_messages.core.empty.Empty
     provider_message_type: make87_messages.text.text_plain.PlainText

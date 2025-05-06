@@ -47,6 +47,19 @@ def main():
 
     vpn_url_endpoint.provide(callback_vpn_url)
 
+    local_url_endpoint = make87.get_provider(
+        name="LOCAL_SERVER_URL", requester_message_type=Empty, provider_message_type=PlainText
+    )
+    def callback_local_url(message: Empty) -> PlainText:
+        local_address = f"{make87.DEPLOYED_APPLICATION_NAME}:11434"
+
+        return PlainText(
+            header=make87.header_from_message(Header, message=message, append_entity_path="response"),
+            body=local_address,
+        )
+
+    local_url_endpoint.provide(callback_local_url)
+
     model_name_endpoint = make87.get_provider(
         name="MODEL_NAME", requester_message_type=Empty, provider_message_type=PlainText
     )
