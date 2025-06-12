@@ -1,44 +1,29 @@
-build_kit:
-  name: file://build_kit/Dockerfile
-  version: latest
-  target_architectures:
-    - amd64
-outbound_topics: [ ]
-inbound_topics: [ ]
-requester_endpoints: [ ]
-provider_endpoints:
-  - name: CHAT
-    requester_message_type: make87_messages.text.text_plain.PlainText
-    provider_message_type: make87_messages.text.text_plain.PlainText
-  - name: IMG_CHAT
-    requester_message_type: make87_messages.image.compressed.image_jpeg_with_string.ImageJPEGWithString
-    provider_message_type: make87_messages.text.text_plain.PlainText
-  - name: VPN_SERVER_URL
-    requester_message_type: make87_messages.core.empty.Empty
-    provider_message_type: make87_messages.text.text_plain.PlainText
-  - name: LOCAL_SERVER_URL
-    requester_message_type: make87_messages.core.empty.Empty
-    provider_message_type: make87_messages.text.text_plain.PlainText
-  - name: MODEL_NAME
-    requester_message_type: make87_messages.core.empty.Empty
-    provider_message_type: make87_messages.text.text_plain.PlainText
-port_requirements:
-  - name: OLLAMA
-    protocol: HTTP
-    target_port: 11434
-    publish_mode: Ingress
-    is_system_interface: false
+version: 1
+interfaces:
+  - name: ollama-server
+    protocol: http
+    servers:
+      - name: mcp-server
+        port:
+          name: ollama-server-port
+          protocol: HTTP
+          target_port: 11434
+        spec:
+          string: ollama
+container_config: { }
+config:
+  type: object
+  properties:
+    model_name:
+      type: string
+      description: 'The name of the ollama model to use. Options are: gemma3:1b, gemma3, gemma3:12b, gemma3:27b, qwq, deepseek-r1, deepseek-r1:671b, llama3.3, llama3.2, llama3.2:1b, llama3.2-vision, llama3.2-vision:90b, llama3.1, llama3.1:405b, phi4, phi4-mini, mistral, moondream, neural-chat, starling-lm, codellama, llama2-uncensored, llava, granite3.2'
+      default: 'qwen3:14b'
 peripheral_requirements:
   - peripheral_type: GPU
     name: GPU
     constraints: null
-needs_host_network: false
-needs_privileged: false
-config:
-  values:
-    - name: MODEL_NAME
-      description: 'The name of the ollama model to use. Options are: gemma3:1b, gemma3, gemma3:12b, gemma3:27b, qwq, deepseek-r1, deepseek-r1:671b, llama3.3, llama3.2, llama3.2:1b, llama3.2-vision, llama3.2-vision:90b, llama3.1, llama3.1:405b, phi4, phi4-mini, mistral, moondream, neural-chat, starling-lm, codellama, llama2-uncensored, llava, granite3.2'
-      default_value: 'moondream'
-      required: true
-      secret: false
-volume_requirements: [ ]
+build:
+  custom:
+    dockerfile: build_kit/Dockerfile
+    platforms:
+      - linux/amd64
