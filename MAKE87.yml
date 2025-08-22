@@ -30,6 +30,6 @@ variants:
   rocm:
     build:
       custom:
-        dockerfile: build_kits/Dockerfile.rocm
+        dockerfile: build_kit/Dockerfile.rocm
         platforms:
           - linux/amd64
