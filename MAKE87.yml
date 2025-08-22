@@ -17,7 +17,6 @@ config:
     model_name:
       type: string
       description: 'The name of the ollama model to use. Options are: gemma3:1b, gemma3, gemma3:12b, gemma3:27b, qwq, deepseek-r1, deepseek-r1:671b, llama3.3, llama3.2, llama3.2:1b, llama3.2-vision, llama3.2-vision:90b, llama3.1, llama3.1:405b, phi4, phi4-mini, mistral, moondream, neural-chat, starling-lm, codellama, llama2-uncensored, llava, granite3.2'
-      default: 'qwen3:14b'
 peripheral_requirements:
   - peripheral_type: GPU
     name: GPU
@@ -27,3 +26,10 @@ build:
     dockerfile: build_kit/Dockerfile
     platforms:
       - linux/amd64
+variants:
+  rocm:
+    build:
+      custom:
+        dockerfile: build_kits/Dockerfile.rocm
+        platforms:
+          - linux/amd64
