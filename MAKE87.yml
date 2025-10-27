@@ -29,6 +29,7 @@ build:
     dockerfile: build_kit/Dockerfile
     platforms:
       - linux/amd64
+      - linux/arm64
 variants:
   rocm:
     build:
