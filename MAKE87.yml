@@ -37,4 +37,3 @@ variants:
         dockerfile: build_kit/Dockerfile.rocm
         platforms:
           - linux/amd64
-          - linux/arm64
